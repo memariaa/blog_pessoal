@@ -8,13 +8,17 @@ import { DeleteResult } from "typeorm/browser";
 export class PostagemService{
 
     constructor(
-        @InjectRepository(Postagem) // indica que essa classe poder injetada em outras classes
+        @InjectRepository(Postagem) // injeta o repositório da entidade Postagem
         private postagemRepository: Repository<Postagem>
     ){}
 
     async findAll(): Promise<Postagem[]>{
         // SELECT * FROM tb_postagens
-        return this.postagemRepository.find();
+        return this.postagemRepository.find({
+            relations: {
+                tema: true        
+            }
+    });
     }
 
     async findById(id: number): Promise<Postagem>{
@@ -22,6 +26,9 @@ export class PostagemService{
         const postagem = await this.postagemRepository.findOne({
             where: {
                 id
+            }, 
+            relations:{
+                tema: true
             }
         })
 
@@ -36,6 +43,9 @@ export class PostagemService{
         return this.postagemRepository.find({
             where: {
                 titulo: ILike(`%${titulo}%`) // Ilike ignora maiusculas e minusculas
+            },
+            relations: {
+                tema: true
             }
         })
     }
