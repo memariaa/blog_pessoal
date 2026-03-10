@@ -16,7 +16,8 @@ export class PostagemService{
         // SELECT * FROM tb_postagens
         return this.postagemRepository.find({
             relations: {
-                tema: true        
+                tema: true,
+                usuario: true       
             }
     });
     }
@@ -28,8 +29,8 @@ export class PostagemService{
                 id
             }, 
             relations:{
-                tema: true
-            }
+                tema: true,
+                usuario: true}
         })
 
         if (!postagem){
@@ -45,7 +46,8 @@ export class PostagemService{
                 titulo: ILike(`%${titulo}%`) // Ilike ignora maiusculas e minusculas
             },
             relations: {
-                tema: true
+                tema: true,
+                usuario: true
             }
         })
     }
