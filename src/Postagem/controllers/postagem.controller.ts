@@ -2,9 +2,12 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPip
 import { PostagemService } from "../services/postagem.service";
 import { Postagem } from "../entities/postagem.entity";
 import { JwtAuthGuard } from "../../auth/guard/jwt.auth.guard";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
+@ApiTags('Postagem') // para organizar as rotas no swagger, ou seja, para que as rotas de postagem fiquem agrupadas em uma seção chamada "Postagem"
 @UseGuards(JwtAuthGuard) // para proteger as rotas, ou seja, para que apenas usuarios autenticados possam acessar as rotas de postagem. O JwtAuthGuard é o guard que criamos para verificar se o token JWT é válido.
 @Controller("/postagens")
+@ApiBearerAuth() // para informar ao swagger que as rotas de postagem estão protegidas por autenticação JWT, ou seja, para que o swagger exiba um campo para inserir o token JWT ao acessar as rotas de postagem.
 export class PostagemController {
 
     constructor(

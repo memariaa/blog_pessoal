@@ -2,7 +2,9 @@ import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs
 import { LocalAuthGuard } from '../guard/local.auth.guard';
 import { AuthService } from '../services/auth.service';
 import { UsuarioLogin } from '../entities/usuarioLogin.entity';
+import { ApiTags } from '@nestjs/swagger';
  
+@ApiTags('Usuario') // para organizar as rotas no swagger, ou seja, para que as rotas de autenticação fiquem agrupadas em uma seção chamada "Auth"
 @Controller("/usuarios")
 export class AuthController {
     constructor(private authService: AuthService) { }
